@@ -1,8 +1,8 @@
 # UTBotJava-action
 
-An action for generating unit tests and creating SARIF reports based on [UTBotJava](https://github.com/UnitTestBot/UTBotJava).
+An action for unit tests generation and SARIF report creation with the [UTBotJava](https://github.com/UnitTestBot/UTBotJava) engine.
 
-The SARIF output is subsequently imported into GitHub to display errors in the Security Code Scanning Alerts.
+The action imports the SARIF output into GitHub. The SARIF output displays errors in the Security Code Scanning Alerts section.
 
 ## Content
 
