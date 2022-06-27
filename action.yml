@@ -1,0 +1,51 @@
+name: "UTBot static code analysis"
+
+description: "The GitHub action for generating tests and creating SARIF reports based on UTBotJava"
+
+branding:
+  icon: 'coffee'
+  color: 'red'
+
+inputs:
+  github_token:
+    description: "Specify secrets.GITHUB_TOKEN here if you want to push generated tests to your private repository."
+    default: 'Stub for public repositories'
+
+  pushTests:
+    description: "Push generated tests to the repository or not."
+    default: 'true'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Run generateTestsAndSarifReport task
+      run: gradle generateTestsAndSarifReport
+      shell: bash
+
+    - name: Configure github-actions[bot]
+      run: |
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+      shell: bash
+
+    - name: Commit generated tests
+      if: ${{ inputs.pushTests == 'true' }}
+      run: |
+        git add ${{ inputs.generatedTestsRelativeRoot }}
+        if ! git diff --quiet HEAD ${{ inputs.generatedTestsRelativeRoot }}  # if there are changes
+        then
+          git commit -m "[UTBot]: Add generated tests"
+        fi
+      shell: bash
+
+    - name: Push changes
+      if: ${{ inputs.pushTests == 'true' }}
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ inputs.github_token }}
+        branch: ${{ github.ref }}
+
+    - name: Upload SARIF report
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: build/generated/sarif/SarifTestReport.sarif
