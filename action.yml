@@ -23,7 +23,7 @@ runs:
   using: 'composite'
   steps:
     - name: Run generateTestsAndSarifReport task
-      run: gradle generateTestsAndSarifReport
+      run: gradle generateTestsAndSarifReport -PmergedSarifReportFileName='utbot-report.sarif'
       shell: bash
 
     - name: Configure github-actions[bot]
@@ -52,4 +52,4 @@ runs:
     - name: Upload SARIF report
       uses: github/codeql-action/upload-sarif@v2
       with:
-        sarif_file: build/generated/sarif/SarifTestReport.sarif
+        sarif_file: build/generated/sarif/utbot-report.sarif
