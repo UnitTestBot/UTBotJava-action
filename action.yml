@@ -15,6 +15,10 @@ inputs:
     description: "Push generated tests to the repository or not."
     default: 'true'
 
+  generatedTestsRelativeRoot:
+    description: "Relative path (against repository root) to the root of the generated tests."
+    default: 'build/generated/test'
+
 runs:
   using: 'composite'
   steps:
