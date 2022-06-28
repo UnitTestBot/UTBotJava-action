@@ -12,7 +12,7 @@ The action imports the SARIF output into GitHub. The SARIF output displays error
 ## Usage
 
 1. Apply the [UTBot gradle plugin](https://plugins.gradle.org/plugin/org.utbot.gradle.plugin) to your project.
-2. Create the workflow with UTBotJava-action. Sample workflow:
+2. Create the workflow with UTBotJava-action. Simple workflow example:
 
 ```YAML
 name: "Run UTBotJava-action"
