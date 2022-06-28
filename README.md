@@ -44,7 +44,16 @@ jobs:
 
 ## Inputs
 
-| Name | Description | Default value |
-| --- | --- | --- |
-| `github_token` | Specify `secrets.GITHUB_TOKEN` here if you want to push generated tests to your __private__ repository. | - |
-| `pushTests` | Push generated tests to the repository or not. | 'true' |
+| Name | Description | Options | Default value |
+| --- | --- | --- | --- |
+| `pushTests` | Push generated tests to the repository or not. | - | 'true' |
+| `targetClasses` | Classes for which the SARIF report will be created. | - | '\[\]' (all classes) |
+| `generatedTestsRelativeRoot` | Relative path (against repository root) to the root of the generated tests. | - | '.utbot/test' |
+| `testFramework` | The name of the test framework to be used. | 'junit4', 'junit5', 'testng' | 'junit5' |
+| `mockFramework` | The name of the mock framework to be used. | 'mockito' | 'mockito' |
+| `generationTimeout` | Time budget for generating tests for one class (in milliseconds). | - | '60000' |
+| `codegenLanguage` | The language of the generated tests. | 'java', 'kotlin'. | 'java' |
+| `mockStrategy` | The mock strategy to be used. | 'do-not-mock', 'package-based', 'all-except-cut' | 'package-based' |
+| `staticsMocking` | Use static methods mocking or not. | 'do-not-mock-statics', 'mock-statics' | 'mock-statics' |
+| `forceStaticMocking` | Forces mocking static methods and constructors for classesToMockAlways classes or not. | 'force', 'do-not-force'. | 'force' |
+| `classesToMockAlways` | Classes to force mocking theirs static methods and constructors. | - | '\[\]' (some internal classes) |
