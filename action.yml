@@ -7,49 +7,80 @@ branding:
   color: 'red'
 
 inputs:
-  github_token:
-    description: "Specify secrets.GITHUB_TOKEN here if you want to push generated tests to your private repository."
-    default: 'Stub for public repositories'
-
   pushTests:
     description: "Push generated tests to the repository or not."
     default: 'true'
 
+  targetClasses:
+    description: "Classes for which the SARIF-report will be created. Uses all source classes from the user project if this list is empty."
+    default: '[]'
+
   generatedTestsRelativeRoot:
     description: "Relative path (against repository root) to the root of the generated tests."
-    default: 'build/generated/test'
+    default: '.utbot/test'
+
+  testFramework:
+    description: "The name of the test framework to be used. Options: ['junit4', 'junit5', 'testng']."
+    default: 'junit5'
+
+  mockFramework:
+    description: "The name of the mock framework to be used. Options: ['mockito']."
+    default: 'mockito'
+
+  generationTimeout:
+    description: "Time budget for generating tests for one class (in milliseconds)."
+    default: '60000'
+
+  codegenLanguage:
+    description: "The language of the generated tests. Options: ['java', 'kotlin']."
+    default: 'java'
+
+  mockStrategy:
+    description: "The mock strategy to be used. Options: ['do-not-mock', 'package-based', 'all-except-cut']."
+    default: 'package-based'
+
+  staticsMocking:
+    description: "Use static methods mocking or not. Options: ['do-not-mock-statics', 'mock-statics']."
+    default: 'mock-statics'
+
+  forceStaticMocking:
+    description: "Forces mocking static methods and constructors for classesToMockAlways classes or not. Options: ['force', 'do-not-force']."
+    default: 'force'
+
+  classesToMockAlways:
+    description: "Classes to force mocking theirs static methods and constructors. By default, some internal classes are used."
+    default: '[]'
 
 runs:
   using: 'composite'
   steps:
     - name: Run generateTestsAndSarifReport task
-      run: gradle generateTestsAndSarifReport -PmergedSarifReportFileName='utbot-report.sarif'
+      run: gradle generateTestsAndSarifReport
+        -PtargetClasses="${{ inputs.targetClasses }}"
+        -PgeneratedTestsRelativeRoot=${{ inputs.generatedTestsRelativeRoot }}
+        -PsarifReportsRelativeRoot='.utbot/sarif'
+        -PtestFramework=${{ inputs.testFramework }}
+        -PmockFramework=${{ inputs.mockFramework }}
+        -PgenerationTimeout=${{ inputs.generationTimeout }}
+        -PcodegenLanguage=${{ inputs.codegenLanguage }}
+        -PmockStrategy=${{ inputs.mockStrategy }}
+        -PstaticsMocking=${{ inputs.staticsMocking }}
+        -PforceStaticMocking=${{ inputs.forceStaticMocking }}
+        -PclassesToMockAlways="${{ inputs.classesToMockAlways }}"
+        -PmergedSarifReportFileName='utbot-report.sarif'
       shell: bash
 
-    - name: Configure github-actions[bot]
-      run: |
-        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-      shell: bash
-
-    - name: Commit generated tests
+    - name: Commit and push generated tests
       if: ${{ inputs.pushTests == 'true' }}
-      run: |
-        git add ${{ inputs.generatedTestsRelativeRoot }}
-        if ! git diff --quiet HEAD ${{ inputs.generatedTestsRelativeRoot }}  # if there are changes
-        then
-          git commit -m "[UTBot]: Add generated tests"
-        fi
-      shell: bash
-
-    - name: Push changes
-      if: ${{ inputs.pushTests == 'true' }}
-      uses: ad-m/github-push-action@master
+      uses: EndBug/add-and-commit@v9
       with:
-        github_token: ${{ inputs.github_token }}
-        branch: ${{ github.ref }}
+        add: ${{ inputs.generatedTestsRelativeRoot }}
+        message: "[UTBot]: Add generated tests"
+        author_name: github-actions[bot]
+        author_email: 41898282+github-actions[bot]@users.noreply.github.com
+        push: --force
 
     - name: Upload SARIF report
       uses: github/codeql-action/upload-sarif@v2
       with:
-        sarif_file: build/generated/sarif/utbot-report.sarif
+        sarif_file: .utbot/sarif/utbot-report.sarif
