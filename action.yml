@@ -78,7 +78,7 @@ runs:
         message: "[UTBot]: Add generated tests"
         author_name: github-actions[bot]
         author_email: 41898282+github-actions[bot]@users.noreply.github.com
-        push: origin HEAD:${{ github.ref }} --force
+        push: origin HEAD:${{ github.head_ref }} --force
 
     - name: Upload SARIF report
       uses: github/codeql-action/upload-sarif@v2
