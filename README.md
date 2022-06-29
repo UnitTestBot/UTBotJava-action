@@ -59,6 +59,8 @@ jobs:
 
 __Workflow example:__
 
+Please note that in this case, GitHub displays errors in the Pull Request Checks section.
+
 ```YAML
 name: "Run UTBotJava-action"
 
