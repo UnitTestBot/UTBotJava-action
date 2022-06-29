@@ -50,7 +50,6 @@ jobs:
 | `targetClasses` | Classes for which the SARIF report will be created | - | all classes |
 | `generatedTestsRelativeRoot` | Relative path (against repository root) to the root of the generated tests. | - | .utbot/test |
 | `testFramework` | The name of the test framework to be used | junit4, junit5, testng | junit5 |
-| `mockFramework` | The name of the mock framework to be used | mockito | mockito |
 | `generationTimeout` | Time budget for generating tests for one class (in milliseconds) | - | 60000 |
 | `codegenLanguage` | The language of the generated tests | java, kotlin | java |
 | `mockStrategy` | The mock strategy to be used | do-not-mock, package-based, all-except-cut | package-based |
@@ -90,7 +89,6 @@ jobs:
         targetClasses: '[com.github.username.SomeClass, com.github.username.AnotherClass]'
         generatedTestsRelativeRoot: 'src/test'
         testFramework: 'testng'
-        mockFramework: 'mockito'
         generationTimeout: 50000  # ms
         codegenLanguage: 'kotlin'
         mockStrategy: 'all-except-cut'
