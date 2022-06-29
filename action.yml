@@ -23,10 +23,6 @@ inputs:
     description: "The name of the test framework to be used. Options: ['junit4', 'junit5', 'testng']."
     default: 'junit5'
 
-  mockFramework:
-    description: "The name of the mock framework to be used. Options: ['mockito']."
-    default: 'mockito'
-
   generationTimeout:
     description: "Time budget for generating tests for one class (in milliseconds)."
     default: '60000'
@@ -60,7 +56,6 @@ runs:
         -PgeneratedTestsRelativeRoot=${{ inputs.generatedTestsRelativeRoot }}
         -PsarifReportsRelativeRoot='.utbot/sarif'
         -PtestFramework=${{ inputs.testFramework }}
-        -PmockFramework=${{ inputs.mockFramework }}
         -PgenerationTimeout=${{ inputs.generationTimeout }}
         -PcodegenLanguage=${{ inputs.codegenLanguage }}
         -PmockStrategy=${{ inputs.mockStrategy }}
