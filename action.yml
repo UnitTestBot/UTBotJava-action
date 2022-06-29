@@ -79,7 +79,7 @@ runs:
         author_name: github-actions[bot]
         author_email: 41898282+github-actions[bot]@users.noreply.github.com
         push: --force
-        new_branch: origin ${{ github.head_ref }}
+        new_branch: ${{ github.head_ref }}
 
     - name: Upload SARIF report
       uses: github/codeql-action/upload-sarif@v2
