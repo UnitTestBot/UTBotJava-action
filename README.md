@@ -62,7 +62,7 @@ __Workflow example:__
 ```YAML
 name: "Run UTBotJava-action"
 
-on: [push]
+on: [pull_request]
 
 jobs:
   build:
@@ -70,6 +70,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+      with:
+        # required if you want to push generated tests in your repository
+        ref: ${{ github.head_ref }}
 
     - name: Setup Java
       uses: actions/setup-java@v2
