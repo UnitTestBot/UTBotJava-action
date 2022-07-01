@@ -13,7 +13,7 @@ inputs:
 
   targetClasses:
     description: "Classes for which the SARIF-report will be created. Uses all source classes from the user project if this list is empty."
-    default: '[]'
+    default: 'all'
 
   generatedTestsRelativeRoot:
     description: "Relative path (against repository root) to the root of the generated tests."
@@ -32,8 +32,8 @@ inputs:
     default: 'java'
 
   mockStrategy:
-    description: "The mock strategy to be used. Options: ['do-not-mock', 'package-based', 'all-except-cut']."
-    default: 'package-based'
+    description: "The mock strategy to be used. Options: ['no-mocks', 'other-packages', 'other-classes']."
+    default: 'other-packages'
 
   staticsMocking:
     description: "Use static methods mocking or not. Options: ['do-not-mock-statics', 'mock-statics']."
