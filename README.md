@@ -101,3 +101,89 @@ jobs:
         forceStaticMocking: 'do-not-force'
         classesToMockAlways: '[java.util.Random]'
 ```
+
+## Manual trigger configuration
+
+You can create a workflow that are manually triggered with the `workflow_dispatch` event.
+
+You will then see a `Run workflow` button on the Actions tab, enabling you to easily trigger a run.
+
+![image](https://user-images.githubusercontent.com/54814796/176915768-e89bf101-56e6-4303-8b77-485c7ecb5143.png)
+
+
+__Workflow example:__
+
+```YAML
+name: "Run UTBotJava-action"
+
+on:
+  workflow_dispatch:
+    inputs:
+      pushTests:
+        description: "Push generated tests to the repository"
+        type: boolean
+        default: true
+      generatedTestsRelativeRoot:
+        description: "Relative path to the root of the tests"
+        type: string
+        default: '.utbot/test'
+      testFramework:
+        type: choice
+        options:
+          - junit4
+          - junit5
+          - testng
+        default: 'junit5'
+      generationTimeout:
+        description: "Time budget for one class (ms)"
+        type: string
+        default: '60000'
+      codegenLanguage:
+        type: choice
+        options:
+          - java
+          - kotlin
+        default: java
+      mockStrategy:
+        type: choice
+        options:
+          - 'no-mocks'
+          - 'other-packages'
+          - 'other-classes'
+        default: 'other-packages'
+      staticsMocking:
+        type: choice
+        options: 
+          - 'do-not-mock-statics'
+          - 'mock-statics'
+        default: 'mock-statics'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup Java
+      uses: actions/setup-java@v2
+      with:
+        distribution: adopt
+        java-version: 8
+
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+      with:
+        gradle-version: 6.8
+
+    - name: Run test-github-action
+      uses: Ideaseeker/test-github-action@main
+      with:
+        pushTests: ${{ inputs.pushTests }}
+        generatedTestsRelativeRoot: ${{ inputs.generatedTestsRelativeRoot }}
+        testFramework: ${{ inputs.testFramework }}
+        generationTimeout: ${{ inputs.generationTimeout }}
+        codegenLanguage: ${{ inputs.codegenLanguage }}
+        mockStrategy: ${{ inputs.mockStrategy }}
+        staticsMocking: ${{ inputs.staticsMocking }}
+```
