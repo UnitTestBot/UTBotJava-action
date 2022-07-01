@@ -73,7 +73,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
       with:
-        # required if you want to push generated tests in your repository
+        # required if you want to push generated tests in your pull request
         ref: ${{ github.head_ref }}
 
     - name: Setup Java
