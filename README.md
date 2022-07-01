@@ -8,6 +8,7 @@ The action imports the SARIF output into GitHub. The SARIF output displays error
 
 - [Usage](#usage)
 - [Inputs](#inputs)
+- [Manual trigger](#manual-trigger-configuration)
 
 ## Usage
 
