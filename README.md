@@ -1,8 +1,8 @@
 # UTBotJava-action
 
-You want to reduce extra moves and save some time in your working process. 
-<br/>  We have an action for that!
-<br/>See: now you can initiate unit tests generation and SARIF report creation right into GitHub with the [UTBotJava](https://github.com/UnitTestBot/UTBotJava) engine.
+You want to reduce extra moves and save some time in your working process. We have an action for that!
+
+See: now you can initiate unit tests generation and SARIF report creation right into GitHub with the [UTBotJava](https://github.com/UnitTestBot/UTBotJava) engine.
 
 The action imports the SARIF output into your GitHub repository and creates the Security Code Scanning Alerts section, where you can find all code errors displayed.
 
