@@ -1,19 +1,22 @@
 # UTBotJava-action
 
-An action for unit tests generation and SARIF report creation with the [UTBotJava](https://github.com/UnitTestBot/UTBotJava) engine.
+You want to reduce extra moves and save some time in your working process. We have an action for that!
 
-The action imports the SARIF output into GitHub. The SARIF output displays errors in the Security Code Scanning Alerts section.
+See: now you can initiate unit tests generation and SARIF report creation right into GitHub with the [UTBotJava](https://github.com/UnitTestBot/UTBotJava) engine.
 
-## Content
+The action imports the SARIF output into your GitHub repository and creates the Security Code Scanning Alerts section, where you can find all code errors displayed.
 
-- [Usage](#usage)
+Sounds pretty cool, and it really is! 😃
+
+
+- [How to use](#how-to-use)
 - [Inputs](#inputs)
 - [Manual trigger](#manual-trigger-configuration)
 
-## Usage
+## How to use
 
-1. Apply the [UTBot gradle plugin](https://plugins.gradle.org/plugin/org.utbot.gradle.plugin) to your project.
-2. Create the workflow with UTBotJava-action. Simple workflow example:
+1. Start with applying the [UTBot gradle plugin](https://plugins.gradle.org/plugin/org.utbot.gradle.plugin) to your project.
+2. Then, create the workflow with UTBotJava-action. Simple workflow example:
 
 ```YAML
 name: "Run UTBotJava-action"
@@ -41,9 +44,11 @@ jobs:
     - name: Run UTBotJava-action
       uses: UnitTestBot/UTBotJava-action@main
 ```
-3. Look at the Security Code Scanning Alerts to see the detected errors.
+3. Check the Security Code Scanning Alerts to see the detected errors.
 
 ## Inputs
+
+Here are the input data parameters for the UTBotJava-action:
 
 | Name | Description | Options | Default value |
 | --- | --- | --- | --- |
@@ -60,7 +65,7 @@ jobs:
 
 __Workflow example:__
 
-Please note that in this case, GitHub displays errors in the Pull Request Checks section.
+📍 __Important note__: in this case, GitHub displays errors in the Pull Request Checks section.
 
 ```YAML
 name: "Run UTBotJava-action"
@@ -105,10 +110,8 @@ jobs:
 
 ## Manual trigger configuration
 
-You can create a workflow that are manually triggered with the `workflow_dispatch` event.
-
-You will then see a __Run workflow__ button on the Actions tab, enabling you to easily trigger a run.
-
-Step-by-step instruction on how to configure a manual workflow can be found in the [example repository](https://github.com/UnitTestBot/UTBotJava-action-example).
+Apart from the automatic action, you can also create a workflow with a __Run workflow__ button that will let you launch the action manually. Like this:
 
 ![image](https://user-images.githubusercontent.com/54814796/176915768-e89bf101-56e6-4303-8b77-485c7ecb5143.png)
+
+How to do this? Find a step-by-step instruction in the [example repository](https://github.com/UnitTestBot/UTBotJava-action-example). 😉
