@@ -42,7 +42,7 @@ jobs:
         gradle-version: 6.8
 
     - name: Run UTBotJava-action
-      uses: UnitTestBot/UTBotJava-action@main
+      uses: UnitTestBot/UTBotJava-action@v1
 ```
 3. Check the Security Code Scanning Alerts to see the detected errors.
 
@@ -94,7 +94,7 @@ jobs:
         gradle-version: 6.8
 
     - name: Run UTBotJava-action
-      uses: UnitTestBot/UTBotJava-action@main
+      uses: UnitTestBot/UTBotJava-action@v1
       with:
         pushTests: 'true'
         targetClasses: '[com.github.username.SomeClass, com.github.username.AnotherClass]'
